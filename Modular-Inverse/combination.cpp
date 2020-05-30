@@ -4,7 +4,7 @@ using namespace std;
 typedef long long ll;
 
 const int mod = 998244353; // mod has to be a prime
-const int n = 200002
+const int n = 200002;
 ll fac[n+1], fin[n+1];
 
 // power with mod
@@ -28,10 +28,10 @@ ll inv(ll x) {
 // extended euclidean way to find inverse if mod isn't a prime
 // call invEuclid(x, mod);
 ll invEuclid(ll a, ll b){
- return 1<a ? b - inv(b%a,a)*b/a : 1;
+ return 1<a ? b - invEuclid(b%a,a)*b/a : 1;
 }
 
-// combination formula 
+// combination formula
 ll choose(int a, int b) {
 	if (b < 0 || b > a) return 0;
 	return fac[a] * fin[b] % mod * fin[a - b] % mod;
