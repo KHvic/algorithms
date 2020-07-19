@@ -1,52 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-const int MAXN = 2 * 105000;
-const int MAXLOG = 20;
-
-int n, m;
+const int MAXN = 3*1e5 + 10;
+const int MAXP = log2(MAXN) + 10;
+int min_table[MAXP][MAXN];
 int a[MAXN];
-int table[MAXLOG][MAXN];
 int numlog[MAXN];
+int n;
 
-void buildTable() {
+
+void init() {
     numlog[1] = 0;
-    for (int i = 2; i <= n; i++)
-        numlog[i] = numlog[i / 2] + 1;
+    for(int i=2;i<=n;i++) numlog[i] = numlog[i/2] + 1;
 
-    for (int i = 0; i <= numlog[n]; i++) {
-        int curlen = 1 << i;
-        for (int j = 1; j <= n; j++) {
-            if (i == 0) {
-                table[i][j] = a[j];
+    for(int i=0;i<=numlog[n];i++) {
+        int skiprange = 1<<i;
+        for(int j=0;j+skiprange<=n;j++) {
+            if(i==0) {
+                min_table[i][j] = a[j];
                 continue;
             }
-            table[i][j] = max(table[i - 1][j], table[i - 1][j + curlen / 2]);
+            min_table[i][j] = min(min_table[i-1][j], min_table[i-1][j+(skiprange>>1)]);
         }
     }
 }
 
-int getMax(int l, int r) {
-    int curlog = numlog[r - l + 1];
-    return max(table[curlog][l], table[curlog][r - (1 << curlog) + 1]); 
+int query(int low, int high) {
+    int range = high-low+1;
+    int p = numlog[range];
+    int mn = min(min_table[p][low], min_table[p][high-(1<<p)+1]);
+    return mn;
 }
 
+
 int main() {
-    scanf("%d", &n);
-
-    for (int i = 1; i <= n; i++)
-        scanf("%d", &a[i]);
-
-    buildTable();
-
-    scanf("%d", &m);
-
-    for (int i = 1; i <= m; i++) {
-        int l, r;
-        scanf("%d %d", &l, &r);
-        printf("%d ", getMax(l, r));
-    }
-
-    return 0;
+    vector<int> tmp = {4,3,2,1};
+    n = tmp.size();
+    copy(tmp.begin(), tmp.end(), a);
+    init();
+    cout << query(0, 3) << "\n"; // 1
+    cout << query(0, 1) << "\n"; // 3
+    cout << query(1, 2) << "\n"; // 2
 }
