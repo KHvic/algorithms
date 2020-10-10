@@ -5,7 +5,7 @@ using namespace std;
 struct ST {
     int n;
     vector<int> segment, lazy;
-    ST(int len):n(len){
+    ST(int n):n(n){
         segment.assign(4*n, 0);
         lazy.assign(4*n, 0);
     }
