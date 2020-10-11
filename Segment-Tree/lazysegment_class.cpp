@@ -58,7 +58,7 @@ int main(){
     ST st(test.size());
     for(int i=0;i<test.size();i++) st.update(i, i, test[i]);
     printf("%d\n", st.query(1, 2)); // 5
-    printf("%d\n", st.query(0, 6)); // 25
+    printf("%d\n", st.query(0, 5)); // 25
     st.update(0, 2, 2); // adjust all by +2
     printf("%d\n", st.query(0, 3)); // 16 (3, 4, 5, 4)
 }
