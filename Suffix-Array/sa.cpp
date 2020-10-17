@@ -39,4 +39,15 @@ struct SA {
             }
         }
     }
+    bool findString(const string& t, int spos, int epos) {
+        int lo = 0, hi = n-1;
+        int len = epos-spos+1;
+        while(lo<hi) {
+            int mid = (lo+hi)/2;
+            int res = s.compare(sa[mid], len, t, spos, len);
+            (res>=0) ? hi = mid : lo = mid+1;
+        }
+        return s.compare(sa[lo], len, t, spos, len)==0;
+    }
+    bool findString(const string& t) {return findString(t, 0, t.size()-1);}
 };
