@@ -32,8 +32,8 @@ struct SA {
     void buildLCP() {
         lcp = vector<int>(n);
         for(int i=0,k=0;i<n;i++) {
-            if(ra[i] != n-1) {
-                for(int j=sa[ra[i]+1]; s[i+k] == s[j+k];) k++;
+            if(ra[i]) {
+                for(int j=sa[ra[i]-1]; s[i+k] == s[j+k];) k++;
                 lcp[ra[i]] = k;
                 k = max(k-1, 0);
             }
@@ -51,3 +51,20 @@ struct SA {
     }
     bool findString(const string& t) {return findString(t, 0, t.size()-1);}
 };
+
+int main() {
+    string s;
+    cin >> s;
+    SA sa(s);
+    int n = s.size();
+    // lexicographical order looping, O(N^2)
+    for(int i=1;i<=n;i++) {
+        for(int j=sa.lcp[i]+1;j+sa.sa[i]<=n;j++) {
+            for(int k=i;k<=n;k++) {
+                if(k>i && sa.lcp[k]<j) break;
+                int st = sa.sa[k], en = sa.sa[k]+j-1;
+                cout << s.substr(st, j) << endl;
+            }
+        }
+    }
+}
