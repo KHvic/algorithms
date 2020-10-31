@@ -8,17 +8,15 @@ public:
         ft.assign(n + 1, 0);
     }
     int rsq(int b) {
-        b++;
         int sum = 0;
-        for (; b; b -= (b&-b)) sum += ft[b];
+        for (b++; b; b -= (b&-b)) sum += ft[b];
         return sum;
     }
     int rsq(int a, int b) {
         return rsq(b) - rsq(a-1);
     }
     void adjust(int k, int v) {
-        k++;
-        for (; k < (int)ft.size(); k += (k&-k)) ft[k] += v;
+        for (k++; k < (int)ft.size(); k += (k&-k)) ft[k] += v;
     }
 };
 

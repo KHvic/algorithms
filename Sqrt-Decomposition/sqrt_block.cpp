@@ -8,7 +8,7 @@ struct SD{
     vector<vector<int>> cnt;
     vector<int> vals;
     SD(vector<int>& vals):vals(vals),n(vals.size()) {
-        len = sqrt(vals.size()) + 1;
+        len = sqrt(n) + 1;
         cnt = vector<vector<int>>(len, vector<int>(MAX));
         for(int i=0;i<n;i++) cnt[i/len][vals[i]]++;
     }
