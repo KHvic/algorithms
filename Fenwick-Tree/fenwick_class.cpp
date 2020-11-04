@@ -1,11 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class FenwickTree {
+class FT {
 private: vector<int> ft;
 public:
-    FenwickTree(int n) {
+    FT(int n) {
         ft.assign(n + 1, 0);
+    }
+    FT(vector<int>& vals): FT(vals.size()) {
+        for (int i=0; i<vals.size(); i++) adjust(i, vals[i]);
     }
     int rsq(int b) {
         int sum = 0;
@@ -16,22 +19,16 @@ public:
         return rsq(b) - rsq(a-1);
     }
     void adjust(int k, int v) {
-        for (k++; k < (int)ft.size(); k += (k&-k)) ft[k] += v;
+        for (k++; k<ft.size(); k += (k&-k)) ft[k] += v;
     }
 };
 
 int main()
 {
-    int f[] = { 0,2,4,5,5,6,6,6,7,7,8,9 }; // m = 11 scores
-    FenwickTree ft(11); // declare a Fenwick Tree for range [0..11]
-    // insert these scores manually one by one into an empty Fenwick Tree
-    for (int i = 0; i < 11; i++) ft.adjust(f[i], 1); // this is O(k log n)
-    printf("%d\n", ft.rsq(0, 2)); // 2
-    printf("%d\n", ft.rsq(1, 1)); // 0 => ft[1] = 0
-    printf("%d\n", ft.rsq(1, 2)); // 1 => ft[2] = 1
-    printf("%d\n", ft.rsq(1, 6)); // 7 => ft[6] + ft[4] = 5 + 2 = 7
-    printf("%d\n", ft.rsq(1, 10)); // 11 => ft[10] + ft[8] = 1 + 10 = 11
-    printf("%d\n", ft.rsq(3, 6)); // 6 => rsq(1, 6) - rsq(1, 2) = 7 - 1
-    ft.adjust(5, 2); // update demo
-    printf("%d\n", ft.rsq(1, 10)); // now 13
+    vector<int> test = {2, 5, 1, 7};
+    FT ft(test);
+    cout << ft.rsq(3) << "\n"; // 15
+    cout << ft.rsq(1, 2) << "\n"; // 6
+    ft.adjust(1, -3);
+    cout << ft.rsq(1, 2) << "\n"; // 3
 }
