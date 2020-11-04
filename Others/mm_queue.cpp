@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// MMQueue is a struct to find max or min element while maintaining some window size
 struct MMQueue {
     deque<vector<int>> mnq, mxq;
     int len = 0;
