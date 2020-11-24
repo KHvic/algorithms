@@ -6,27 +6,32 @@ struct ST{
 public:
     vector<ll> segment;
     int len;
+    const ll DEFAULT = 0;
     ST(int n): len(n){
-        segment.assign(2*n,0);
+        segment.assign(2*n, DEFAULT);
     }
 
     ST(vector<ll>& arr): ST(arr.size()) {
         for(int i=0;i<len;i++) segment[i+len] = arr[i];
-        for(int i=len-1;i>0;i--) segment[i] = segment[i*2]+segment[i*2+1];
+        for(int i=len-1;i>0;i--) segment[i] = operate(segment[i*2], segment[i*2+1]);
     }
 
     void update(int i, ll val){
         segment[len+i] = val;
-        for(i=(len+i)>>1;i>0;i>>=1) segment[i] = segment[i*2]+segment[i*2+1];
+        for(i=(len+i)>>1;i>0;i>>=1) segment[i] = operate(segment[i*2], segment[i*2+1]);
     }
 
     ll query(int l, int r){
         ll res = 0;
         for(l+=len, r+=len; l<=r; l >>= 1, r >>= 1){
-          if((l&1) == 1) res += segment[l++];
-          if((r&1) == 0)  res += segment[r--];
+          if((l&1) == 1) res = operate(res, segment[l++]);
+          if((r&1) == 0)  res = operate(res, segment[r--]);
         }
         return res;
+    }
+
+    ll operate(ll a, ll b) {
+        return a+b;
     }
 };
 
