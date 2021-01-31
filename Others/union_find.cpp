@@ -2,8 +2,9 @@
 using namespace std;
 
 struct UF {
+    int cnt;
     vector<int> p, rank, size;
-    UF(int N) {
+    UF(int N): cnt{N} {
         p = rank = size = vector<int>(N, 1);
         for (int i = 0; i < N; i++) p[i] = i;
     }
@@ -15,6 +16,7 @@ struct UF {
     }
     void join(int i, int j) {
         if (connected(i, j)) return;
+        cnt--;
         int x = find(i), y = find(j);
         if (rank[x] > rank[y]) {
             p[y] = x;
