@@ -13,16 +13,16 @@ using order_statistic_map = __gnu_pbds::tree<
 >;
 
 template <typename K, typename Comp = std::less<K>>
-using OS = order_statistic_map<K, __gnu_pbds::null_type, Comp>;
+using OT = order_statistic_map<K, __gnu_pbds::null_type, Comp>;
 
 
 int main(){
     vector<int> test = {1,5,8,10,15};
-    OS<int> os(test.begin(), test.end());
+    OT<int> ot(test.begin(), test.end());
 
     // return x smallest item
-    auto it = os.find_by_order(1);
+    auto it = ot.find_by_order(1);
     cout << *it << "\n"; // 5
     // find rank of item
-    cout << os.order_of_key(10) << "\n"; // 3
+    cout << ot.order_of_key(10) << "\n"; // 3
 }
