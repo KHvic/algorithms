@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
+typedef long long ll;
 
+ll mod = 1e9+7;
 struct Binom {
-    ll mod = 1e9+7;
     int n;
     vector<ll> fac, inv;
     Binom(int n): n(n) {

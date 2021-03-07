@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
 // return g = a*x + y*b, compute linear diophantine solution
 ll euclid(ll a, ll b, ll &x, ll &y) {

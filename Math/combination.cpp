@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 typedef long long ll;
 
 const int mod = 998244353; // mod has to be a prime
