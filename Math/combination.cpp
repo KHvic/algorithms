@@ -25,12 +25,6 @@ ll inv(ll x) {
 	return powe(x, mod - 2);
 }
 
-// extended euclidean way to find inverse if mod isn't a prime
-// call invEuclid(x, mod);
-ll invEuclid(ll a, ll b){
- return 1<a ? b - invEuclid(b%a,a)*b/a : 1;
-}
-
 // combination formula
 ll choose(int a, int b) {
 	if (b < 0 || b > a) return 0;
